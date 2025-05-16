@@ -21,37 +21,44 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Fetch random quotes using API
 const quoteText = document.getElementById('quote');
-const authorText = document.getElementById('author');
+const quoteAuthor = document.getElementById('author');
 const newQuoteBtn = document.getElementById('newQuoteBtn');
 
+
+
 // Function to get random quote
-async function getRandomQuote() {
-    quoteText.textContent = "Tunggu dulu bos...";
-    authorText.textContent = "- Loading author";
-    
-    try {
-        const response = await fetch('https://api.quotable.io/random');
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+    async function fetchQuotes() {
+        try {
+            const response = await fetch('https://test001-2425.vercel.app/api/quotes');
+            if (!response.ok) {
+                throw new Error('Failed to fetch quotes');
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching quotes:', error);
+            return null;
         }
-        
-        const data = await response.json();
-        
-        quoteText.textContent = data.content;
-        authorText.textContent = `- ${data.author}`;
-    } catch (error) {
-        console.error('Error fetching quote:', error);
-        quoteText.textContent = "Creativity is intelligence having fun.";
-        authorText.textContent = "- Kak Gem";
     }
-}
+    
+    // Display a random quote
+    async function displayRandomQuote() {
+        const quotes = await fetchQuotes();
+        if (quotes && quotes.length > 0) {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const randomQuote = quotes[randomIndex];
+            quoteText.textContent = `${randomQuote.quotes}`;
+            quoteAuthor.textContent = `— ${randomQuote.author}`;
+        } else {
+            quoteText.textContent = "Failed to load quotes. Please try again later.";
+            quoteAuthor.textContent = "";
+        }
+    }
 
 // Load a quote when page loads
-window.addEventListener('load', getRandomQuote);
+window.addEventListener('load', displayRandomQuote);
 
 // Load a new quote when button is clicked
-newQuoteBtn.addEventListener('click', getRandomQuote);
+newQuoteBtn.addEventListener('click', displayRandomQuote);
 
 // Highlight active section in navigation
 window.addEventListener('scroll', () => {
