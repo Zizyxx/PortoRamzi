@@ -1,0 +1,87 @@
+
+.profile-img {
+    border-radius: 50%;
+    border: 4px solid #3B82F6;
+    transition: transform 0.3s ease;
+}
+
+.profile-img:hover {
+    transform: scale(1.05);
+}
+
+.section-title {
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    height: 3px;
+    width: 50px;
+    background-color: #3B82F6;
+}
+
+.quote-box {
+    transition: all 0.3s ease;
+}
+
+.quote-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.8s ease forwards;
+}
+
+/* Custom responsive adjustments */
+@media (max-width: 768px) {
+    .profile-section {
+        flex-direction: column;
+    }
+    
+    .section-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* Custom project card styling */
+.project-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.15);
+}
+
+/* Custom button styling */
+.btn-primary {
+    background-color: #3B82F6;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #2563EB;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+}
+
+/* Custom form input styling */
+.form-input:focus {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
